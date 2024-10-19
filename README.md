@@ -18,6 +18,7 @@ autonumber
     
     User->>API.ReserveParkingSlot: Try to reserve parking slot
     API.ReserveParkingSlot->>Database: Reserve Parking Slot and create outbox event
+    API.ReserveParkingSlot->>User: Returns the response
     box green Async Processs
         participant CRON
         participant Database
