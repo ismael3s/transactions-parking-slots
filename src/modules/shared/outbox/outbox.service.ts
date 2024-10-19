@@ -16,7 +16,7 @@ export class OutboxService {
         `Processing outbox event - ${outboxEvent.event} ${outboxEvent.id}`,
       );
       outboxEvent.processedAt = new Date();
+      await this.outboxRepository.save(outboxEvent);
     }
-    await this.outboxRepository.save(outboxEvents);
   }
 }
