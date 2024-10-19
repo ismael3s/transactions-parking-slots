@@ -5,7 +5,7 @@ import {
 } from '../../repositories/parking-slot.repository';
 import { OutboxRepository } from 'src/modules/shared/outbox/repositories/outbox.repository';
 import { Outbox } from 'src/modules/shared/outbox/entities/outbox.entity';
-import { LeaveParkingSlotCommand } from './LeaveParkingSlotCommand';
+import { LeaveParkingSlotCommand } from './leave-parking-slot-command';
 import { Transactional } from '@nestjs-cls/transactional';
 import { TimerGateway } from 'src/modules/shared/timers/timer.gateway';
 
