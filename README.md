@@ -6,7 +6,7 @@ Since I started creating automated tests back in 2022, specifically with integra
 
 It's a simple API where a user can reserve a parking slot, mark that they have finished using the reservation they made, and for every action the user performs, an outbox event is created. Later on, this event is consumed by the cron job, which does something with the events — in our case, it just logs them.
 
-## Test
+## General Flow
 
 ```mermaid
 sequenceDiagram
@@ -27,4 +27,13 @@ autonumber
     CRON-->Database: Get outbox events to process
     CRON->>Database: Save the outbox after try to process it
      
+```
+
+## How to run?
+
+This project is only focused to run with tests to do with you need to have Docker installed
+
+```
+npm run test
+npm run test:e2e
 ```
