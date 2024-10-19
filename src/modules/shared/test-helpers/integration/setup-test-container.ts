@@ -60,7 +60,7 @@ export class IntegrationTestHelpers {
       const dataSource = app.get(DataSource);
       await dataSource.runMigrations();
       await app.close();
-    });
+    }, 30_000);
 
     afterAll(async () => {
       await container.stop();
