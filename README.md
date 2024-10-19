@@ -38,3 +38,9 @@ This project is only focused to run with tests to do with you need to have Docke
 npm run test
 npm run test:e2e
 ```
+## Warnings
+
+1. Until this moment, I haven't found a good way to test concurrency scenarios because nest-cls-transactional is smart enough to wrap everything inside the same transaction. Due to that, to test concurrency scenarios, I used `TestContainers` 
+2. With this code, we are creating a new container for each integration test file, but we can change it to use the same container. Since everything is automatically rolled back, it won't be a problem and can improve test speed, as we will only need one PostgreSQL container. 
+
+
