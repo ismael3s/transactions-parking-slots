@@ -24,6 +24,7 @@ import {
   ParkingSlotReservationRepository,
 } from '../src/modules/parking-slots/repositories/parking-slot.repository';
 import { OutboxModule } from '../src/modules/shared/outbox/outbox.module';
+import { TimersModule } from 'src/modules/shared/timers/timers.module';
 
 describe('ParkingSlotsController', () => {
   let app: INestApplication;
@@ -58,6 +59,7 @@ describe('ParkingSlotsController', () => {
 
     const module: TestingModule = await Test.createTestingModule({
       imports: [
+        TimersModule,
         CqrsModule,
         OutboxModule,
         ClsModule.forRoot({
