@@ -1,0 +1,17 @@
+@base_url=http://localhost:3000
+
+
+POST {{base_url}}/parking-slots/7b60fb62-222d-4d92-9a58-c33f94235301/reserve
+Content-Type: application/json
+
+{
+    "plate": "ASD123"
+}
+###
+
+
+GET {{base_url}}/parking-slots/availables
+Content-Type: application/json
+
+
+###
