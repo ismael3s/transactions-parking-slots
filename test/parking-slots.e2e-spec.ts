@@ -25,6 +25,7 @@ import {
 } from '../src/modules/parking-slots/repositories/parking-slot.repository';
 import { OutboxModule } from '../src/modules/shared/outbox/outbox.module';
 import { TimersModule } from 'src/modules/shared/timers/timers.module';
+import exp from 'constants';
 
 describe('ParkingSlotsController', () => {
   let app: INestApplication;
@@ -179,6 +180,35 @@ describe('ParkingSlotsController', () => {
       ]);
       expect(firstResponse.status).toBe(204);
       expect(secondResponse.status).toBe(500); // handle error
+    });
+  });
+
+  describe('/parking-slots/:id/leave/:plate (PATCH)', () => {
+    test('Should be able to reserve a parking slot, and leave after use it', async () => {
+      const response = await request(app.getHttpServer())
+        .get('/parking-slots/availables')
+        .expect(200);
+      const plate = 'ABC-1234';
+
+      const parkingSlot = response.body[0].id;
+      await request(app.getHttpServer())
+        .post(`/parking-slots/${parkingSlot}/reserve`)
+        .send({
+          plate,
+        })
+        .expect(204);
+
+      await request(app.getHttpServer())
+        .patch(`/parking-slots/${parkingSlot}/leave/${plate}`)
+        .expect(204);
+
+      const datasource = app.get(DataSource);
+
+      const [{ left_at }] = await datasource.query(
+        `SELECT left_at FROM parking_slot_reservation WHERE plate = $1 and parking_slot_id = $2`,
+        [plate, parkingSlot],
+      );
+      expect(left_at).not.toBeNull();
     });
   });
 });

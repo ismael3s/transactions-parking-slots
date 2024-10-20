@@ -14,12 +14,12 @@ import { ReserveParkingSlotDto } from './dto/reserve-parking-slot';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { ReserveParkingSlotCommand } from './commands/reserve-parking-slot/reserve-parking-slot-command';
 import { FindAvailableParkingSlotsQuery } from './queries/find-available-parking-slots/find-available-parking-slots-query';
+import { LeaveParkingSlotCommand } from './commands/leave-parking-slot/leave-parking-slot-command';
 
 @Controller('parking-slots')
 export class ParkingSlotsController {
   constructor(
     private readonly commandBus: CommandBus,
-
     private readonly queryBus: QueryBus,
   ) {}
 
@@ -36,6 +36,19 @@ export class ParkingSlotsController {
   ) {
     await this.commandBus.execute(
       new ReserveParkingSlotCommand(input.plate, parkingSlotId),
+    );
+  }
+
+  @Patch(':id/leave/:plate')
+  @HttpCode(204)
+  async leave(
+    @Param('id')
+    parkingSlotId: string,
+    @Param('plate')
+    plate: string,
+  ) {
+    await this.commandBus.execute(
+      new LeaveParkingSlotCommand(parkingSlotId, plate),
     );
   }
 
