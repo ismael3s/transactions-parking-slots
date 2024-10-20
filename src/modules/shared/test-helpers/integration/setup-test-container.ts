@@ -17,8 +17,8 @@ import { ConfigModule, ConfigService, registerAs } from '@nestjs/config';
 let container: StartedPostgreSqlContainer;
 
 const migrationsAndEntitiesPath = {
-  entities: [__dirname + '/../../../**/*.entity.ts'],
-  migrations: [__dirname + '/../../../../../../**/migrations/*.ts'],
+  entities: [__dirname + '/../../../../**/*.entity.ts'],
+  migrations: [__dirname + '/../../../../**/migrations/*.ts'],
 };
 export class IntegrationTestHelpers {
   static setupTestContainer() {
